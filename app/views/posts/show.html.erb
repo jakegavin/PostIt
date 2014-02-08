@@ -1,0 +1,30 @@
+<p><%= render @post.categories %></p>
+<%= render 'shared/content_title', title: @post.title %>
+
+<div class="row">
+  <div class="col-xs-8 col-xs-offset-2 well well-lg">
+    <p><%= @post.description %></p>
+        <p>
+        <span class="quiet">Posted by <%= @post.creator.username %> at </span>
+        <small><%= @post.created_at %></small>
+      </p>
+      <p>
+  </div>
+</div>
+
+<hr style="text-align: center; width: 40%;"> 
+<div class="row">
+  <p class="col-xs-8 col-xs-offset-2 lead">
+    <small>Comments</small>
+  </p>
+</div>
+<% @post.comments.each do |comment| %>
+  <div class="col-xs-8 col-xs-offset-2 well well-sm">
+    <p><%= comment.body %></p>
+    <p>
+      <span class="quiet">Posted by <%= comment.creator.username %> at </span>
+      <small><%= comment.created_at %></small>
+    </p>
+  </div>
+<% end %>
+
