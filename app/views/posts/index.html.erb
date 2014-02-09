@@ -2,7 +2,7 @@
 
 <% @posts.each do |post| %>
 <div class="row">
-  <div class="col-xs-8 col-xs-offset-2 well">
+  <div class="col-xs-10 col-xs-offset-1 well">
     <%= render post.categories %>
     <h4><%= link_to post.title, post.url %></h4>
     <p><%= post.description %></p>
