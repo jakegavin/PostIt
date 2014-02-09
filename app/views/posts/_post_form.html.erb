@@ -1,16 +1,4 @@
-<% if @post.errors.any? %>
-  <div class="row">
-    <div class="col-xs-5 alert alert-danger">
-      Please fix the following errors:
-      <ul>
-        <% @post.errors.full_messages.each do |msg| %>
-          <li><%= msg %></li>
-        <% end %>
-      </ul>
-    </div>
-  </div>
-<% end %>
-
+<%= render partial: 'shared/errors', object: @post %>
 <%= form_for @post do |f| %>
 <div class="input-group">
   <%= f.label :title %> <br>
