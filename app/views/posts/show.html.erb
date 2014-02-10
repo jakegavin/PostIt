@@ -1,3 +1,4 @@
+<p class="pull-right">[<%= link_to "Edit this post", edit_post_path(@post) %>]</p>
 <p><%= render @post.categories %></p>
 <%= render 'shared/content_title', title: @post.title %>
 
@@ -8,9 +9,7 @@
         <span class="quiet">Posted by <%= @post.creator.username %> at </span>
         <small><%= @post.created_at %></small>
       </p>
-      <p>
-        <small><%= link_to "Edit", edit_post_path(@post) %></small>
-      </p>
+      
   </div>
 </div>
 
