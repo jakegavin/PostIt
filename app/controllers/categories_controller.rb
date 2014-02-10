@@ -14,29 +14,28 @@ class CategoriesController < ApplicationController
   end
 
   def create
-    @category = Category.new(post_params)
+    @category = Category.new(cat_params)
 
     if @category.save
-      flash[:notice] = "Your category was saved."
+      flash[:notice] = "The category was saved."
       redirect_to categories_path
     else
       render :new
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
-    if @category.update(post_params)
-      flash[:notice] = "Your category was updated."
+    if @category.update(cat_params)
+      flash[:notice] = "The category was updated."
       redirect_to categories_path
     else
       render :edit
     end
   end
 
-  def post_params
+  def cat_params
     params.require(:category).permit(:name)
   end
 

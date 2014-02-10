@@ -2,16 +2,8 @@
 <p><%= render @post.categories %></p>
 <%= render 'shared/content_title', title: @post.title %>
 
-<div class="row">
-  <div class="col-xs-8 col-xs-offset-2 well well-lg">
-    <p><%= @post.description %></p>
-        <p>
-        <span class="quiet">Posted by <%= @post.creator.username %> at </span>
-        <small><%= @post.created_at %></small>
-      </p>
-      
-  </div>
-</div>
+<%= render 'post', post: @post %>
+
 
 <hr style="text-align: center; width: 40%;"> 
 <div class="row">
