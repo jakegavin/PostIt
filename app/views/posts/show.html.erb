@@ -34,7 +34,7 @@
     <div class="col-xs-8 col-xs-offset-2 well well-sm">
       <p><%= comment.body %></p>
       <p>
-        <span class="quiet">Posted by <%= comment.creator.username %> at </span>
+        <span class="quiet">Posted by <%= link_to comment.creator.username, '' %> at </span>
         <small><%= comment.created_at %></small>
       </p>
     </div>
