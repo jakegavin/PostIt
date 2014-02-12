@@ -12,31 +12,6 @@
   </p>
 </div>
 
-<div class="row">
-  <div class="col-xs-8 col-xs-offset-2 well well-sm">
-    <%= render 'shared/errors', obj: @comment %>
-    <%= form_for [@post, @comment] do |f| %>
-      <div class="input-group">  
-        <%= f.label :body, 'New Comment' %>
-        <br>
-        <%= f.text_area :body, size: "75x3", class: "form-control" %><br>
-      </div>
-      <br>
-      <div class="input-group">
-        <%= f.submit "Add comment", class: "btn btn-primary" %>
-      </div>
-    <% end %>
-  </div>
-</div>
+<%= render 'posts/comment_form', post: @post, comment: @comment %>
 
-<div class="row">
-  <% @post.comments.each do |comment| %>
-    <div class="col-xs-8 col-xs-offset-2 well well-sm">
-      <p><%= comment.body %></p>
-      <p>
-        <span class="quiet">Posted by <%= link_to comment.creator.username, '' %> at </span>
-        <small><%= comment.created_at %></small>
-      </p>
-    </div>
-  <% end %>
-</div>
+<%= render 'posts/comments', post: @post %>
