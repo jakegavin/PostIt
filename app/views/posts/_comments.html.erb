@@ -1,4 +1,4 @@
-<% post.comments.each do |comment| %>
+<% post.reload.comments.each do |comment| %>
   <div class="row">
     <div class="col-xs-8 col-xs-offset-2 well well-sm">
       <p><%= comment.body %></p>

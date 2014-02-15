@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
     @post = Post.find(params[:post_id])
     #@comment = Comment.new(com_params)
     #@comment.post = @post
-    @comment = @post.comments.build(com_params)
+    @comment = @post.comments.new(com_params)
 
     # Hardcoded since we don't have auth yet. 
     @comment.creator = User.last
