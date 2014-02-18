@@ -1,13 +1,11 @@
 class CommentsController < ApplicationController
 
+  before_action :require_user
+
   def create
     @post = Post.find(params[:post_id])
-    #@comment = Comment.new(com_params)
-    #@comment.post = @post
     @comment = @post.comments.new(com_params)
-
-    # Hardcoded since we don't have auth yet. 
-    @comment.creator = User.last
+    @comment.creator = current_user
 
     if @comment.save
       flash[:notice] = "Your comment was added."
@@ -17,7 +15,10 @@ class CommentsController < ApplicationController
     end
   end
 
+  private
+
   def com_params
     params.require(:comment).permit(:body)
   end
+
 end

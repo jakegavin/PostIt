@@ -1,0 +1,21 @@
+<%= render 'shared/content_title', title: 'Login' %>
+
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1 well">
+    <%= form_tag '/login' do %> 
+      <div class="input-group">
+        <%= label_tag :username %>
+        <%= text_field_tag :username, params[:username] || "", class: "form-control"%>
+      </div>
+      <br>
+      <div class="input-group">
+        <%= label_tag :password %>
+        <%= password_field_tag :password, params[:username] || "", class: "form-control" %>
+      </div>
+      <br>
+      <div class="input-group">
+        <%= submit_tag "Log in", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+  </div>
+</div>

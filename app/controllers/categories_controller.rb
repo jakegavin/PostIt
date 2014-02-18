@@ -1,5 +1,6 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update]
+  before_action :require_user, only: [:new, :create, :edit, :update]
 
   def index
     @categories = Category.all.sort_by!{ |e| e.name.downcase }
@@ -34,6 +35,8 @@ class CategoriesController < ApplicationController
       render :edit
     end
   end
+
+  private
 
   def cat_params
     params.require(:category).permit(:name)

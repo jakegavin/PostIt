@@ -20,16 +20,28 @@
                         <% Category.all.sort_by!{ |e| e.name.downcase }.each do |cat| %>
                             <li><%= link_to cat.name, category_path(cat) %></li>
                         <% end %>
-                        <li class="divider"></li>
-                        <li>
-                            <%= link_to(new_category_path) do %>
-                                <span class="glyphicon glyphicon-plus"></span> New Category
-                            <% end %>
-                        </li>
+                        <% if logged_in? %>
+                            <li class="divider"></li>
+                            <li>
+                                <%= link_to(new_category_path) do %>
+                                    <span class="glyphicon glyphicon-plus"></span> New Category
+                                <% end %>
+                            </li>
+                        <% end %>
                     </ul>
                 </li>
-                <li><%= link_to 'New Post', new_post_path, class: "btn btn-sm" %></li>
+                <% if logged_in? %>
+                    <li><%= link_to 'New Post', new_post_path, class: "btn btn-sm" %></li>
+                <% else %>
+                    <li><%= link_to 'Log in', login_path, class: "btn btn-sm" %></li>
+                    <li><%= link_to 'Register', register_path, class: "btn btn-sm" %></li>
+                <% end %>
             </ul>
+            <% if logged_in? %>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><p>Hi <%= current_user.username %> (<%= link_to 'Log out', logout_path %>)</p></li>
+                </ul>
+            <% end %>
         </div>
     </div>            
 </nav>
