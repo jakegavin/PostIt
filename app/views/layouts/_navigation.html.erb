@@ -32,16 +32,16 @@
                 </li>
                 <% if logged_in? %>
                     <li><%= link_to 'New Post', new_post_path, class: "btn btn-sm" %></li>
+                <% end %>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <% if logged_in? %>
+                    <li><p>Hi <%= current_user.username %> (<%= link_to 'Log out', logout_path %>)</p></li>
                 <% else %>
-                    <li><%= link_to 'Log in', login_path, class: "btn btn-sm" %></li>
+                   <li><%= link_to 'Log in', login_path, class: "btn btn-sm" %></li>
                     <li><%= link_to 'Register', register_path, class: "btn btn-sm" %></li>
                 <% end %>
             </ul>
-            <% if logged_in? %>
-                <ul class="nav navbar-nav navbar-right">
-                    <li><p>Hi <%= current_user.username %> (<%= link_to 'Log out', logout_path %>)</p></li>
-                </ul>
-            <% end %>
         </div>
     </div>            
 </nav>
