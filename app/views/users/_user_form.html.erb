@@ -12,6 +12,6 @@
   </div>
   <br>
   <div class="input-group">
-    <%= f.submit "Create Account", class: "btn btn-primary" %>
+    <%= f.submit (@user.new_record? ? "Create Account" : "Update Profile"), class: "btn btn-primary" %>
   </div>
 <% end %>

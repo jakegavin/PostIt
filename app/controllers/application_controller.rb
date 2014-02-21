@@ -27,5 +27,16 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_same_user
+    if current_user != @user
+      flash[:danger] = "You do not have permission do do that."
+      # TODO: redirect back if the HTTP referer is on this site. We don't want to redirect back if the referer is a different site. 
+      #if session['referer'].nil? 
+        redirect_to :root 
+      #else
+      #  redirect_to :back
+      #end
+    end   
+  end
 end
 

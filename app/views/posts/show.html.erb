@@ -14,7 +14,9 @@
 </div>
 
 <% if logged_in? %>
-  <%= render 'posts/comment_form', post: @post, comment: @comment %>
+  <%= render 'comments/comment_form', post: @post, comment: @comment %>
 <% end %>
 
-<%= render 'posts/comments', post: @post %>
+<% @post.reload.comments.each do |comment| %>
+  <%= render 'comments/comment', comment: comment, on_post: true %>
+<% end %>

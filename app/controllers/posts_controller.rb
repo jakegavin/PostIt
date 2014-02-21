@@ -1,6 +1,11 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :edit, :update]
   before_action :require_user, only: [:new, :create, :edit, :update]
+  
+  # @user is needed for require_same_user
+  before_action :set_post_creator, only: [:edit, :update]
+
+  before_action :require_same_user, only: [:edit, :update]
 
   def index
     @posts = Post.all
@@ -48,6 +53,10 @@ class PostsController < ApplicationController
 
   def set_post
     @post = Post.find(params[:id])
+  end
+
+  def set_post_creator
+    @user = @post.creator
   end
 
 end

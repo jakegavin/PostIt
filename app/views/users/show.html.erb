@@ -1,0 +1,46 @@
+<%= render 'shared/content_title', title: "Profile: #{@user.username}" %>
+
+<div class="row">
+  <div class="col-xs-10 col-xs-offset-1 well">
+    <dl class="dl-horizontal">
+        <dt>Username:</dt>
+        <dd><%= @user.username %></dd>
+    </dl>
+  </div>
+</div>
+
+
+<div class="row">
+  <h5 class="col-xs-10 col-xs-offset-1">
+    <%= @user.username %>'s activity
+  </h5>
+</div>
+
+<div class="row">
+  <ul class="nav nav-tabs col-xs-10 col-xs-offset-1">
+    <li class="<%= 'active' if params[:tab].nil? %>"><%= link_to "Posts (#{@user.posts.size})", user_path(@user) %></li>
+    <li class="<%= 'active' if params[:tab] == "comments" %>"><%= link_to "Comments (#{@user.comments.size})", user_path(@user, tab: 'comments') %></li>
+  </ul>
+</div>
+
+<% if params[:tab].nil? %>
+  <% if @user.posts.size == 0 %>
+    <h5 class="text-center"><%= @user.username %> does not have any posts.</h5>
+  <% else %>
+    <% @user.posts.each do |post| %>
+      <br>
+      <%= render 'posts/post', post: post %>
+    <% end %>
+  <% end %>
+<% elsif params[:tab] == "comments" %>
+  <% if @user.comments.size == 0 %>
+    <h5 class="text-center"><%= @user.username %> does not have any comments.</h5>    
+  <% else %>
+    <br>
+    <% @user.comments.each do |comment| %>
+      <%= render 'comments/comment', comment: comment %>    
+    <% end %>
+  <% end %>
+<% else %>
+  <h5 class="text-center">Please select a tab.</h5>
+<% end %>

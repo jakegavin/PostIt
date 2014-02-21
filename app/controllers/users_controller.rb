@@ -1,6 +1,8 @@
 class UsersController < ApplicationController
+  before_action :set_user, only: [:show, :edit, :update]
   before_action :require_user, only: [:edit, :update]
   before_action :require_no_user, only: [:new, :create]
+  before_action :require_same_user, only: [:edit, :update]
 
   def new
     @user = User.new    
@@ -18,13 +20,13 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+  end
+
   def edit
-    @user = User.find(params[:id])
   end
 
   def update
-    @user = User.find(params[:id])
-
     if @user.update(user_params)
       flash[:notice] = "The user was updated"
       redirect_to root_path
@@ -34,6 +36,10 @@ class UsersController < ApplicationController
   end
 
   private
+
+  def set_user
+    @user = User.find(params[:id])
+  end
 
   def user_params
     params.require(:user).permit(:username, :password)
