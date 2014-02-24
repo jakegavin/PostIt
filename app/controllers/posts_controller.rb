@@ -1,6 +1,6 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: [:show, :edit, :update]
-  before_action :require_user, only: [:new, :create, :edit, :update]
+  before_action :set_post, only: [:show, :edit, :update, :vote]
+  before_action :require_user, only: [:new, :create, :edit, :update, :vote]
   
   # @user is needed for require_same_user
   before_action :set_post_creator, only: [:edit, :update]
@@ -8,7 +8,7 @@ class PostsController < ApplicationController
   before_action :require_same_user, only: [:edit, :update]
 
   def index
-    @posts = Post.all
+    @posts = Post.all.sort_by {|x| x.total_votes}.reverse
   end
 
   def show
@@ -43,6 +43,19 @@ class PostsController < ApplicationController
     else
       render :edit
     end
+  end
+
+  def vote
+    @vote = Vote.create(voteable: @post, creator: current_user, vote: params[:vote])
+    
+    if @vote.valid?
+      flash[:notice] = "Vote counted"
+    else
+      flash[:danger] = "You can only vote for that once"
+    end
+
+    redirect_to :back
+
   end
   
   private
