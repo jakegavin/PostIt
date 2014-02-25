@@ -2,37 +2,41 @@
 
 <div class="row">
   <% if on_post %>
-    <div class="col-xs-1 col-xs-offset-1 well well-sm text-center">
+    <div class="col-xs-2 col-xs-offset-1">
+      <div class="well well-sm text-center">
   <% else %>
-    <div class="col-xs-1 well well-sm text-center">
+    <div class="col-xs-2">
+      <div class="well well-sm text-center">
   <% end %>
-
-    <% if logged_in? %>
-      <%= link_to vote_post_comment_path(comment.post, comment, vote: true), method: 'post' do %>
-        <span class="glyphicon glyphicon-arrow-up"></span><% end %>
-      <br>
-    <% end %>
-    <%= comment.total_votes %> Votes
-    <% if logged_in? %>
-      <br>
-      <%= link_to vote_post_comment_path(comment.post, comment, vote: false), method: 'post' do %>
-        <span class="glyphicon glyphicon-arrow-down"></span><% end %>
-    <% end %>
+      <% if logged_in? %>
+        <%= link_to vote_post_comment_path(comment.post, comment, vote: true), method: 'post' do %>
+          <span class="glyphicon glyphicon-arrow-up"></span><% end %>
+        <br>
+      <% end %>
+      <%= comment.total_votes %> Votes
+      <% if logged_in? %>
+        <br>
+        <%= link_to vote_post_comment_path(comment.post, comment, vote: false), method: 'post' do %>
+          <span class="glyphicon glyphicon-arrow-down"></span><% end %>
+      <% end %>
+    </div>
   </div>
 
   <% if on_post %>
-    <div class="col-xs-9 well well-sm">
+    <div class="col-xs-8">
+      <div class="well well-sm">
   <% else %>
-    <div class="col-xs-10 well">
+    <div class="col-xs-10">
+      <div class="well">
   <% end %>
-  
-    <% if on_post %>
-      <p><%= comment.body %></p>
-    <% else %>
-      <p>"<em><%= comment.body %></em>" on <%= link_to comment.post.title, post_path(comment.post) %></p>
-    <% end %>
-    <p>
-      <span class="quiet">Posted by <%= link_to comment.creator.username, user_path(comment.creator) %>  on <%= fix_date(comment.created_at) %></span>
-    </p>
+      <% if on_post %>
+        <p><%= comment.body %></p>
+      <% else %>
+        <p>"<em><%= comment.body %></em>" on <%= link_to comment.post.title, post_path(comment.post) %></p>
+      <% end %>
+      <p>
+        <span class="quiet">Posted by <%= link_to comment.creator.username, user_path(comment.creator) %>  on <%= fix_date(comment.created_at) %></span>
+      </p>
+    </div>
   </div>
 </div>

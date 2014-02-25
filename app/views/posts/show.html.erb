@@ -1,12 +1,11 @@
-<% if logged_in? %>
+<% if current_user_is_owner?(@post.creator) %>
 <p class="pull-right">[<%= link_to "Edit this post", edit_post_path(@post) %>]</p>
 <% end %>
 <%= render 'shared/content_title', title: @post.title %>
 
 <%= render 'posts/post', post: @post %>
 
-
-<hr style="text-align: center; width: 40%;"> 
+<hr style="text-align: center; width: 40%; margin-top: 8px; margin-bottom: 8px;"> 
 <div class="row">
   <p class="col-xs-8 col-xs-offset-2 lead">
     <small>Comments</small>

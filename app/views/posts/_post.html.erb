@@ -1,31 +1,45 @@
 <div class="row">
-  <div class="col-xs-1 well well-sm text-center">
-    <% if logged_in? %>
-      <%= link_to vote_post_path(post, vote: true), method: 'post' do %>
-      <span class="glyphicon glyphicon-arrow-up"></span><% end %>
-      <br>
-      <% end %>
-      <%= post.total_votes %> Votes
+  <div class="col-xs-2">
+    <div class="well well-sm text-center">
       <% if logged_in? %>
-      <br>
-      <%= link_to vote_post_path(post, vote: false), method: 'post' do %>
-      <span class="glyphicon glyphicon-arrow-down"></span><% end %>
-    <% end %>
+        <%= link_to vote_post_path(post, vote: true), method: 'post' do %>
+          <% if voted_for?("Post", post.id, true) %>
+            <span class="glyphicon glyphicon-arrow-up" style="color: #2EB82E;"></span>
+          <% else %>
+           <span class="glyphicon glyphicon-arrow-up"></span>
+          <% end %>
+        <% end %>
+        <br>
+        <% end %>
+        <%= post.total_votes %> Votes
+        <% if logged_in? %>
+        <br>
+        <%= link_to vote_post_path(post, vote: false), method: 'post' do %>
+          <% if voted_for?("Post", post.id, false) %>
+            <span class="glyphicon glyphicon-arrow-down" style="color: #2EB82E;"></span>
+          <% else %>
+           <span class="glyphicon glyphicon-arrow-down"></span>
+          <% end %>
+        <% end %>
+        <% end %>
+    </div>
   </div>
-  <div class="col-xs-10 well">
-    <%= render post.categories %>
-    <small class="quiet pull-right text-right">Up Votes: <%= post.up_votes%><br>Down Votes: <%= post.down_votes%></small>
-    <h4><%= link_to post.title, fix_url(post.url) %></h4>
-    <p><%= post.description %></p>
-    <p>
-      <span class="quiet">Posted by <%= link_to post.creator.username, user_path(post.creator) %> on <%= fix_date(post.created_at) %></span>
-    </p>
-    <p>
-      <small>
-      <span>
-        <%= link_to("#{post.comments.size} comments", post_path(post)) %>
-      </span>
-      </small>
-    </p>
+  <div class="col-xs-10">
+    <div class="well">
+      <%= render post.categories %>
+      <small class="quiet pull-right text-right">Up Votes: <%= post.up_votes%><br>Down Votes: <%= post.down_votes%></small>
+      <h4><%= link_to post.title, fix_url(post.url) %></h4>
+      <p><%= post.description %></p>
+      <p>
+        <span class="quiet">Posted by <%= link_to post.creator.username, user_path(post.creator) %> on <%= fix_date(post.created_at) %></span>
+      </p>
+      <p>
+        <small>
+        <span>
+          <%= link_to("#{post.comments.size} comments", post_path(post)) %>
+        </span>
+        </small>
+      </p>
+    </div>
   </div>
 </div>

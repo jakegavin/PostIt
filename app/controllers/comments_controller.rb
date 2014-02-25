@@ -16,14 +16,13 @@ class CommentsController < ApplicationController
   end
 
   def vote
-    @vote = Vote.create(creator: current_user, vote: params[:vote], voteable_type: 'Comment', voteable_id: params[:id])
+    @vote = Vote.create(creator: current_user, vote: params[:vote], voteable: Comment.find(params[:id]))
 
     if @vote.valid?
       flash[:notice] = "Your vote was saved."
     else
       flash[:danger] = "You can only vote on that once."
     end
-    
     redirect_to :back
   end
 

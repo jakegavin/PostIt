@@ -11,16 +11,18 @@
 
 
 <div class="row">
-  <h5 class="col-xs-10 col-xs-offset-1">
+  <h5 class="col-xs-12">
     <%= @user.username %>'s activity
   </h5>
 </div>
 
 <div class="row">
-  <ul class="nav nav-tabs col-xs-10 col-xs-offset-1">
-    <li class="<%= 'active' if params[:tab].nil? %>"><%= link_to "Posts (#{@user.posts.size})", user_path(@user) %></li>
-    <li class="<%= 'active' if params[:tab] == "comments" %>"><%= link_to "Comments (#{@user.comments.size})", user_path(@user, tab: 'comments') %></li>
-  </ul>
+  <div class="col-xs-12">
+    <ul class="nav nav-tabs">
+      <li class="<%= 'active' if params[:tab].nil? %>"><%= link_to "Posts (#{@user.posts.size})", user_path(@user) %></li>
+      <li class="<%= 'active' if params[:tab] == "comments" %>"><%= link_to "Comments (#{@user.comments.size})", user_path(@user, tab: 'comments') %></li>
+    </ul>
+  </div>
 </div>
 
 <% if params[:tab].nil? %>

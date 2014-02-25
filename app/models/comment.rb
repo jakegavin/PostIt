@@ -3,7 +3,6 @@ class Comment < ActiveRecord::Base
   belongs_to :creator, foreign_key: 'user_id', class_name: 'User'
   has_many :votes, as: :voteable
 
-
   validates :body, length: {minimum: 5}
 
   def total_votes
