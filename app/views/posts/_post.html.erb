@@ -16,7 +16,7 @@
         <br>
         <%= link_to vote_post_path(post, vote: false), method: 'post' do %>
           <% if voted_for?("Post", post.id, false) %>
-            <span class="glyphicon glyphicon-arrow-down" style="color: #2EB82E;"></span>
+            <span class="glyphicon glyphicon-arrow-down" style="color: #CC0000;"></span>
           <% else %>
            <span class="glyphicon glyphicon-arrow-down"></span>
           <% end %>

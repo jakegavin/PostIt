@@ -10,14 +10,22 @@
   <% end %>
       <% if logged_in? %>
         <%= link_to vote_post_comment_path(comment.post, comment, vote: true), method: 'post' do %>
-          <span class="glyphicon glyphicon-arrow-up"></span><% end %>
+          <% if voted_for?("Comment", comment.id, true) %>
+            <span class="glyphicon glyphicon-arrow-up" style="color: #2EB82E;"></span>
+          <% else %>
+           <span class="glyphicon glyphicon-arrow-up"></span>
+          <% end %><% end %>
         <br>
       <% end %>
       <%= comment.total_votes %> Votes
       <% if logged_in? %>
         <br>
         <%= link_to vote_post_comment_path(comment.post, comment, vote: false), method: 'post' do %>
-          <span class="glyphicon glyphicon-arrow-down"></span><% end %>
+          <% if voted_for?("Comment", comment.id, false) %>
+            <span class="glyphicon glyphicon-arrow-down" style="color: #CC0000;"></span>
+          <% else %>
+           <span class="glyphicon glyphicon-arrow-down"></span>
+          <% end %><% end %>
       <% end %>
     </div>
   </div>
