@@ -1,0 +1,7 @@
+<% if params[:vote] == "true" %>
+ $('#post_<%= @post.id %>_arrow_up').css('color', '#2EB82E');
+<% else %>
+  $('#post_<%= @post.id %>_arrow_down').css('color', '#CC0000');
+<% end %>
+
+$('#post_<%= @post.id %>_votes').html('<%= @post.total_votes %> Votes');
