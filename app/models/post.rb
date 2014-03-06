@@ -9,7 +9,7 @@ class Post < ActiveRecord::Base
   validates :description, presence: true, length: {maximum: 500}
   validates :url, presence: true, uniqueness: true
 
-  after_validation :generate_slug
+  after_validation :generate_slug!
 
   def total_votes
     up_votes - down_votes
@@ -27,8 +27,9 @@ class Post < ActiveRecord::Base
     self.slug
   end
 
-  def generate_slug
-    alt_title = self.title.gsub(/\W/,'-').downcase    
+  def generate_slug!
+    alt_title = self.title.strip.gsub(/\W/,'-').downcase
+    alt_title.gsub!(/-+/, '-')   
     num = 0
     slug_title = alt_title
     slugs = Post.all.map {|p| p.slug}

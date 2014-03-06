@@ -4,14 +4,23 @@ class Category < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: true
 
-  after_validation :generate_slug
+  after_validation :generate_slug!
 
   def to_param
     self.slug
   end
 
-  def generate_slug
-    self.slug = self.name.downcase.gsub(/\W/, '-')
+  def generate_slug!
+    alt_name = self.name.strip.gsub(/\W/,'-').downcase
+    alt_name.gsub!(/-+/, '-')   
+    num = 0
+    slug_name = alt_name
+    slugs = Category.all.map {|p| p.slug}
+    while slugs.include?(slug_name)
+      num = num + 1 
+      slug_name = alt_name + '-' + num.to_s
+    end
+    self.slug = slug_name
   end
 
 end
