@@ -7,7 +7,7 @@ class CategoriesController < ApplicationController
   end
 
   def show
-    @posts = Category.find(params[:id]).posts
+    @posts = @category.posts
   end
 
   def new
@@ -43,7 +43,7 @@ class CategoriesController < ApplicationController
   end
 
   def set_category
-    @category = Category.find(params[:id])
+    @category = Category.find_by(slug: params[:id])
   end
 
 end

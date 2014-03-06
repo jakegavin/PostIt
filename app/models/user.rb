@@ -5,7 +5,16 @@ class User < ActiveRecord::Base
 
   has_secure_password validations: false
   
-  validates :username, presence: true, uniqueness: true
+  validates :username, presence: true, uniqueness: true, format: {:with => /\A[\w\-]*\Z/}
   validates :password, length: { minimum: 5}, on: :create 
   
+  after_validation :generate_slug
+
+  def to_param
+    self.slug
+  end
+
+  def generate_slug
+    self.slug = self.username.downcase.gsub(/\W/, '-')
+  end
 end
