@@ -13,14 +13,12 @@ class Category < ActiveRecord::Base
   def generate_slug!
     alt_name = self.name.strip.gsub(/\W/,'-').downcase
     alt_name.gsub!(/-+/, '-')   
-    num = 0
     slug_name = alt_name
-    slugs = Category.all.map {|p| p.slug}
-    while slugs.include?(slug_name)
+    num = 0
+    while !!Category.find_by(slug: slug_name)
       num = num + 1 
       slug_name = alt_name + '-' + num.to_s
     end
     self.slug = slug_name
   end
-
 end

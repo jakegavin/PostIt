@@ -30,11 +30,10 @@ class Post < ActiveRecord::Base
   def generate_slug!
     alt_title = self.title.strip.gsub(/\W/,'-').downcase
     alt_title.gsub!(/-+/, '-')   
-    num = 0
     slug_title = alt_title
-    slugs = Post.all.map {|p| p.slug}
-    while slugs.include?(slug_title)
-      num = num + 1 
+    num = 0
+    while !!Post.find_by(slug: slug_title)
+      num += 1
       slug_title = alt_title + '-' + num.to_s
     end
     self.slug = slug_title
