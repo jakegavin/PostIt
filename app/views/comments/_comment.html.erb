@@ -6,26 +6,28 @@
       <div class="well well-sm text-center">
   <% else %>
     <div class="col-xs-2">
-      <div class="well well-sm text-center">
+      <div  class="well well-sm text-center">
   <% end %>
       <% if logged_in? %>
-        <%= link_to vote_post_comment_path(comment.post, comment, vote: true), method: 'post' do %>
+        <%= link_to vote_post_comment_path(comment.post, comment, vote: true), method: 'post', remote: true do %>
           <% if voted_for?("Comment", comment.id, true) %>
             <span class="glyphicon glyphicon-arrow-up" style="color: #2EB82E;"></span>
           <% else %>
-           <span class="glyphicon glyphicon-arrow-up"></span>
-          <% end %><% end %>
+           <span id="comment_<%= comment.id %>_arrow_up" class="glyphicon glyphicon-arrow-up"></span>
+          <% end %>
+        <% end %>
         <br>
       <% end %>
-      <%= comment.total_votes %> Votes
+      <span id="comment_<%= comment.id %>_votes"><%= comment.total_votes %> Votes</span>
       <% if logged_in? %>
         <br>
-        <%= link_to vote_post_comment_path(comment.post, comment, vote: false), method: 'post' do %>
+        <%= link_to vote_post_comment_path(comment.post, comment, vote: false), method: 'post', remote: true do %>
           <% if voted_for?("Comment", comment.id, false) %>
             <span class="glyphicon glyphicon-arrow-down" style="color: #CC0000;"></span>
           <% else %>
-           <span class="glyphicon glyphicon-arrow-down"></span>
-          <% end %><% end %>
+           <span id="comment_<%= comment.id %>_arrow_down" class="glyphicon glyphicon-arrow-down"></span>
+          <% end %>
+        <% end %>
       <% end %>
     </div>
   </div>

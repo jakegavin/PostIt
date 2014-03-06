@@ -1,7 +1,12 @@
-<% if params[:vote] == "true" %>
- $('#post_<%= @post.id %>_arrow_up').css('color', '#2EB82E');
+<% if @vote.valid? %>
+  <% if params[:vote] == "true" %>
+    $('#post_<%= @post.id %>_arrow_up').css('color', '#2EB82E');
+  <% else %>
+    $('#post_<%= @post.id %>_arrow_down').css('color', '#CC0000');
+  <% end %>
+  $('#post_<%= @post.id %>_votes').html('<%= @post.total_votes %> Votes');
 <% else %>
-  $('#post_<%= @post.id %>_arrow_down').css('color', '#CC0000');
+  $('#post_<%= @post.id %>_vote_error').remove();
+  $('#post_<%= @post.id %>_votes').parent('div').css('background-color', '#ECD6D6');
+  $('#post_<%= @post.id %>_votes').parent('div').append('<p class="small text-center" style="color: #d9534f;" id="post_<%= @post.id %>_vote_error">You can only vote once.</p>');
 <% end %>
-
-$('#post_<%= @post.id %>_votes').html('<%= @post.total_votes %> Votes');
