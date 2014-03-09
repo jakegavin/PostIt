@@ -2,19 +2,18 @@
   <div class="col-xs-2">
     <div class="well well-sm text-center">
       <% if logged_in? %>
-        <%= link_to vote_post_path(post, vote: true), method: 'post', remote: true, class: "up_arrow" do %>
+        <%= link_to vote_post_path(post, vote: true), method: 'post', remote: true, style: "display: block;" do %>
           <% if voted_for?("Post", post.id, true) %>
             <span class="glyphicon glyphicon-arrow-up" style="color: #2EB82E;"></span>
           <% else %>
            <span id="<%= post.slug %>_arrow_up" class="glyphicon glyphicon-arrow-up"></span>
           <% end %>
         <% end %>
-        <br>
         <% end %>
         <span id="<%= post.slug %>_votes"><%= post.total_votes %> Votes</span>
         <% if logged_in? %>
         <br>
-        <%= link_to vote_post_path(post, vote: false), method: 'post', remote: true do %>
+        <%= link_to vote_post_path(post, vote: false), method: 'post', remote: true, style: "display: block;" do %>
           <% if voted_for?("Post", post.id, false) %>
             <span class="glyphicon glyphicon-arrow-down" style="color: #CC0000;"></span>
           <% else %>
