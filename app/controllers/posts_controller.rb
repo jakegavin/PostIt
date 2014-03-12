@@ -3,8 +3,8 @@ class PostsController < ApplicationController
   before_action :require_user, only: [:new, :create, :edit, :update, :vote]
 
   before_action only: [:edit, :update] do
-    @user = @post.creator
-    require_owner(@user)
+    @creator = @post.creator
+    require_owner(@creator)
   end
 
   def index

@@ -5,14 +5,22 @@ class ApplicationController < ActionController::Base
   
   helper_method :current_user, :logged_in?, :current_user_is_owner?, :voted_for?
 
-  def current_user
-    @current_user ||= User.find(session[:user_id]) if session[:user_id]
-  end
-  
   def logged_in?
     !!current_user
   end
   
+  def current_user
+    @current_user ||= User.find(session[:user_id]) if session[:user_id]
+  end
+  
+  def current_user_is_owner?(owner)
+    if logged_in? and (current_user.admin? or current_user == owner)
+      true
+    else
+      false
+    end
+  end
+
   def require_user
     if !logged_in?
       flash[:danger] = "You must be logged in to do that."
@@ -20,27 +28,19 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def require_admin
+    access_denied unless logged_in? and current_user.admin?
+  end
+
   def require_no_user
     if logged_in?
-      flash[:danger] = "You can't do that when you're logged in."
+      flash[:danger] = "You can't do that while logged in."
       redirect_to root_path
     end
   end
 
-  def current_user_is_owner?(owner)
-    current_user == owner
-  end
-
   def require_owner(owner)
-    if !current_user_is_owner?(owner)
-      flash[:danger] = "You do not have permission do do that."
-      # TODO: redirect back if the HTTP referer is on this site. We don't want to redirect back if the referer is a different site. 
-      #if session['referer'].nil? 
-        redirect_to :root 
-      #else
-      #  redirect_to :back
-      #end
-    end   
+    access_denied unless current_user_is_owner?(owner) 
   end
 
   def voted_for?(type, id, vote)
@@ -51,4 +51,9 @@ class ApplicationController < ActionController::Base
       false
     end
   end
+
+  def access_denied
+    flash[:danger] = "You do not have permission do do that."
+    redirect_to :root      
+  end 
 end
