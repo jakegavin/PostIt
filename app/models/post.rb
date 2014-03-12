@@ -12,4 +12,12 @@ class Post < ActiveRecord::Base
   validates :url, presence: true, uniqueness: true
 
   sluggable_column :title
+
+  def to_json(options)
+    super(:except => [:id, :slug])
+  end
+
+  def to_xml(options)
+    super(:except => [:id, :slug])
+  end
 end

@@ -15,4 +15,12 @@ class User < ActiveRecord::Base
   def admin?
     self.role == 'admin'
   end
+
+  def to_json(options)
+    super(:except => [:id, :role, :password_digest, :slug])
+  end
+
+  def to_xml(options)
+    super(:except => [:id, :role, :password_digest, :slug])
+  end
 end
