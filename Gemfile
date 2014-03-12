@@ -18,6 +18,8 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.2'
 
+gem 'voteable_jake'
+
 group :doc do
   gem 'sdoc', require: false
 end
